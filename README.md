@@ -26,12 +26,6 @@ Before using the GitHub API, you need to configure your own API key:
 3. Click **Generate new token**, and select the required permissions (e.g., `public_repo`).
 4. Copy the generated token.
 
-Next, create a `.env` file in your project and add the following content:
-
-```
-GITHUB_TOKEN=your_api_key
-```
-
 ## 📦 Installation and Usage
 
 1. **Clone the project to your local machine**:
