@@ -41,7 +41,7 @@ Before using the GitHub API, you need to configure your own API key:
 
 3. **Start the application**:
    ```bash
-   npm start
+   node index.js
    ```
 
 4. **Open your browser and visit** `http://localhost:3000`.
