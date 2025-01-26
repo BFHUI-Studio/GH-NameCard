@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Card Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f6f8fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #555;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        a, button {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 25px;
+            color: white;
+            background-color: #0366d6;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        a:hover, button:hover {
+            background-color: #024ea2;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        a:active, button:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+        }
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        code {
+            display: block;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: nowrap;
+            overflow-x: auto;
+            max-width: 100%;
+        }
+        #generated-image {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+        input {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: calc(100% - 22px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Profile Card Generator</h1>
+        <h2>Option 1: Login with GitHub</h2>
+        <a href="/auth/github" class="ripple-button">Login with GitHub</a>
+        
+        <h2>Option 2: Generate with Parameters</h2>
+        <p>Use URL parameters to generate a card:</p>
+        <code>
+            /generate?name=YourName&description=YourDescription&avatar=ImageURL
+        </code>
+        <p>Example:</p>
+        <input type="text" id="name" placeholder="Enter your name" />
+        <input type="text" id="description" placeholder="Enter a description" />
+        <input type="text" id="avatar" placeholder="Enter avatar image URL" />
+        <button class="ripple-button" onclick="generateCard()">Generate Example Card</button>
+    </div>
+    <img id="generated-image" src="" alt="Generated Card" />
+
+    <script>
+        document.querySelectorAll('.ripple-button').forEach(button => {
+            button.addEventListener('click', function (e) {
+                const circle = document.createElement('span');
+                const diameter = Math.max(button.clientWidth, button.clientHeight);
+                const radius = diameter / 2;
+
+                circle.style.width = circle.style.height = `${diameter}px`;
+                circle.style.left = `${e.clientX - button.offsetLeft - radius}px`;
+                circle.style.top = `${e.clientY - button.offsetTop - radius}px`;
+                circle.classList.add('ripple');
+
+                const ripple = button.getElementsByClassName('ripple')[0];
+
+                if (ripple) {
+                    ripple.remove();
+                }
+
+                button.appendChild(circle);
+            });
+        });
+
+        function generateCard() {
+            const name = document.getElementById('name').value || 'Little Wolf';
+            const description = document.getElementById('description').value || 'A little developer';
+            const avatar = document.getElementById('avatar').value || 'https://via.placeholder.com/140';
+            const imageUrl = `/generate?name=${encodeURIComponent(name)}&description=${encodeURIComponent(description)}&avatar=${encodeURIComponent(avatar)}`;
+            document.getElementById('generated-image').src = imageUrl;
+        }
+    </script>
+</body>
+</html>
