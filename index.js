@@ -61,7 +61,7 @@ app.get('/auth/github/callback', passport.authenticate('github', {
 }), (req, res) => {
     // Successful authentication, redirect to generate with user info
     const name = req.user.username; // GitHub username
-    const description = 'GitHub User'; // You can customize this
+    const description = req.user.bio; // You can customize this
     const avatar = req.user._json.avatar_url; // GitHub avatar URL
 
     // Redirect to the generate endpoint with parameters
