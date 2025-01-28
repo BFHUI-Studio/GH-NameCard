@@ -7,7 +7,7 @@ import fetch from 'node-fetch'; // Importing fetch
 import path from 'path'; // Import path module
 
 const app = express();
-const port = 3006;
+const port = 3000;
 
 // Configure winston logger
 const logger = winston.createLogger({
